@@ -16,6 +16,11 @@ app.post('/getAudio', (req, res) => {
     const { audio_base64 } = req.body
     const buffer = Buffer.from(audio_base64, 'base64');
     fs.writeFileSync("audio.wav", buffer);
+    axios.post('http://localhost:8011/A2F/Player/SetTrack', {
+        a2f_player: '/World/audio2face/Player',
+        file_name: 'C:/Users/Administrator/Downloads/audio-express-main/audio.wav',
+        time_range: [0, -1]
+    })
     axios.post('http://localhost:8011/A2F/Player/Play', {
         a2f_player: '/World/audio2face/Player'
     })
